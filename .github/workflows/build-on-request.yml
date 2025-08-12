@@ -47,10 +47,6 @@ jobs:
             --clean-after-build
           vcpkgTriplet: 'x86-windows-static'
 
-      - name: Build project with MSBuild
-        run: msbuild YourSolution.sln /p:Configuration=Release /p:Platform=x86
-
-
       - name: Integrate vcpkg
         run: ${{ runner.workspace }}/vcpkg/vcpkg integrate install
 

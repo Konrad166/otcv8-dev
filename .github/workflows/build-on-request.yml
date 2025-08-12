@@ -1,28 +1,29 @@
-name: Build on request
+name: Build OTClientV8
+
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
 
 jobs:
-  Windows:
-    name: Build windows version
-    runs-on: windows-2022
-    timeout-minutes: 180
+  build-windows:
+    runs-on: windows-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          submodules: recursive
-          fetch-depth: 0
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v2
+      - name: Setup Visual Studio 2022
+        uses: microsoft/setup-msbuild@v1.1
+        with:
+          vs-version: '17.0'
 
       - name: Setup vcpkg
         uses: lukka/run-vcpkg@v7
         with:
           vcpkgGitCommitId: '3b3bd424827a1f7f4813216f6b32b6c61e386b2e'
-          vcpkgArguments: >-
+          vcpkgArguments: >
             install --recurse
             boost-iostreams:x86-windows-static
             boost-asio:x86-windows-static
@@ -44,6 +45,11 @@ jobs:
             libzip:x86-windows-static
             openssl:x86-windows-static
             --clean-after-build
+          vcpkgTriplet: 'x86-windows-static'
+
+      - name: Build project with MSBuild
+        run: msbuild YourSolution.sln /p:Configuration=Release /p:Platform=x86
+
 
       - name: Integrate vcpkg
         run: ${{ runner.workspace }}/vcpkg/vcpkg integrate install

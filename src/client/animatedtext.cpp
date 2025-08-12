@@ -87,20 +87,6 @@ void AnimatedText::setFont(const std::string& fontName)
 
 bool AnimatedText::merge(const AnimatedTextPtr& other)
 {
-    if(other->getColor() != m_color)
-        return false;
-
-    if(other->getCachedText().getFont() != m_cachedText.getFont())
-        return false;
-
-    if(m_animationTimer.ticksElapsed() > Otc::ANIMATED_TEXT_DURATION / 2.5)
-        return false;
-
-    try {
-        int number = stdext::safe_cast<int>(m_cachedText.getText());
-        int otherNumber = stdext::safe_cast<int>(other->getCachedText().getText());
-        m_cachedText.setText(std::to_string(number + otherNumber));
-        return true;
-    } catch(...) {}
+    // Disable merging, always return false
     return false;
 }

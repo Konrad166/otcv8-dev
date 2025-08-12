@@ -54,7 +54,7 @@ jobs:
     #     .\tools\sign\signtool.exe sign /f .\tools\sign\certificate.pfx /p ${{ secrets.SIGN_PASSWORD }} /fd SHA256 /t http://timestamp.digicert.com /d "OTclientV8" otclient_dx.exe
 
     - name: Upload binaries
-      uses: 'actions/upload-artifact@v2'
+      uses: 'actions/upload-artifact@v4'
       with:
         name: Binaries
         path: |
@@ -108,7 +108,7 @@ jobs:
         MSBuild.exe /p:Configuration=Release /p:Platform="ARM64" /p:BUILD_REVISION=${{github.run_number}}
 
     - name: Upload binaries
-      uses: 'actions/upload-artifact@v2'
+      uses: 'actions/upload-artifact@v4'
       with:
         name: Binaries
         path: |
@@ -162,7 +162,7 @@ jobs:
         mv '${{ runner.workspace }}/build/otclient' '${{ runner.workspace }}/build/otclient_mac'
 
     - name: Upload otclient
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: Binaries
         path: |
@@ -216,7 +216,7 @@ jobs:
         mv '${{ runner.workspace }}/build/otclient' '${{ runner.workspace }}/build/otclient_linux'
 
     - name: Upload otclient
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: Binaries
         path: |
@@ -242,7 +242,7 @@ jobs:
         submodules: recursive
 
     - name: Download binaries
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v4
       with:
         name: Binaries
 
@@ -257,7 +257,7 @@ jobs:
         }
 
     - name: Upload otclientv8.log
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         path: otclientv8.log
         name: Download-otclientv8.log
@@ -285,7 +285,7 @@ jobs:
         | Copy-Item -Destination screenshots -Force -PassThru
 
     - name: Upload screenshot
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         path: screenshots
         name: Download-screenshots
@@ -303,7 +303,7 @@ jobs:
         "VERSION=${version}" | Add-Content -Path $ENV:GITHUB_ENV
 
     - name: Upload otclient
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: Download-otclientv8
         path: |

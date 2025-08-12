@@ -13,7 +13,7 @@ jobs:
           submodules: recursive
 
     - name: Setup MSBuild and add to PATH
-      uses: microsoft/setup-msbuild@v1.0.2
+      uses: microsoft/setup-msbuild@v2
       id: setup_msbuild
 
     - name: Run vcpkg
@@ -58,7 +58,7 @@ jobs:
           submodules: recursive
 
     - name: Setup MSBuild and add to PATH
-      uses: microsoft/setup-msbuild@v1.0.2
+      uses: microsoft/setup-msbuild@v2
       id: setup_msbuild
 
     - name: Create data.zip for android
@@ -267,6 +267,7 @@ jobs:
           mods
           init.lua
         if-no-files-found: error
+
 
 
 

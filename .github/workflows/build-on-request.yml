@@ -25,10 +25,30 @@ jobs:
         vcpkgGitURL: https://github.com/microsoft/vcpkg.git
         doNotCache: true
         vcpkgDirectory: ${{ runner.workspace }}/vcpkg/
-        vcpkgArguments: >
-          install --triplet x86-windows-static
-          boost-iostreams boost-asio boost-beast boost-system boost-variant boost-lockfree boost-process boost-program-options boost-uuid boost-filesystem
-          luajit glew physfs openal-soft libogg libvorbis zlib libzip bzip2 openssl
+vcpkgArguments: >-
+  install --recurse
+  --triplet x86-windows-static
+  boost-iostreams
+  boost-asio
+  boost-beast
+  boost-system
+  boost-variant
+  boost-lockfree
+  boost-process
+  boost-program-options
+  boost-uuid
+  boost-filesystem
+  luajit
+  glew
+  physfs
+  openal-soft
+  libogg
+  libvorbis
+  zlib
+  libzip
+  bzip2
+  openssl
+
 
     - name: Integrate vcpkg
       run: ${{ runner.workspace }}/vcpkg/vcpkg integrate install
